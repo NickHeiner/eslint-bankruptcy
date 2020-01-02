@@ -12,14 +12,26 @@ const _ = require('lodash');
  * @param {object} options 
  * @param {string[]} options.files
  * @param {string[]} options.rules
+ * @param {boolean | undefined} options.dry
  */
 async function eslintBankruptcy(options) {
   const eslintBin = await getEslintBinPath();
   const eslintReport = await runEslint(eslintBin, options.files);
   const violations = await getViolations(eslintReport, options.rules);
-  log.info({violationCount: violations.length}, `Found ${violations.length} violations.`);
-  log.debug({violationFiles: _.map(violations, 'filePath')});
-  log.trace({violations});
+  const countViolatingFiles = _.size(violations);
+  const logParams = {countViolatingFiles};
+  if (options.dry) {
+    Object.assign(logParams, {violations});
+  } else {
+    log.debug({violationFiles: Object.keys(violations)});
+    log.trace({violations});
+  }
+  log.info(logParams, `Found violations in ${countViolatingFiles} files.`);
+  
+  if (options.dry) {
+    log.info('Exiting because dry mode is on.');
+    return;
+  }
 }
 
 /**
@@ -27,7 +39,19 @@ async function eslintBankruptcy(options) {
  * @param {string[]} rules
  */
 function getViolations(eslintReport, rules) {
-  return eslintReport.filter(({messages}) => messages.some(({ruleId}) => rules.includes(ruleId)));
+  return _(eslintReport)
+    .flatMapDeep(({filePath, messages}) => _.flatMap(messages, ({ruleId, line}) => ({filePath, ruleId, line})))
+    .groupBy('filePath')
+    .mapValues(entry => _(entry)
+      .filter(({ruleId}) => rules.includes(ruleId))
+      .groupBy('line')
+      .mapValues(violations => _.map(violations, violation => _.omit(violation, 'filePath', 'line')))
+      .value()
+    )
+    .toPairs()
+    .filter(([, violations]) => Boolean(_.size(violations)))
+    .fromPairs()
+    .value();
 }
 
 async function getEslintBinPath(dirPath = process.cwd()) {

@@ -8,9 +8,14 @@ const {argv} = require('yargs')
     rule: {
       alias: 'r',
       array: true,
+      string: true,
       demandOption: true,
-      description: 'The rule to disable. Pass this flag multiple times to disable multiple rules at once.',
-      coerce: rules => rules.map(/** @param {any} rule */ rule => rule.toString())
+      description: 'The rule to disable. Pass this flag multiple times to disable multiple rules at once.'
+    },
+    dry: {
+      alias: 'd',
+      boolean: true,
+      description: 'If true, print a description of which files will be updated, but do not actually change anything.'
     }
   });
 
@@ -22,8 +27,8 @@ async function main() {
     console.log(argv);
     await eslintBankruptcy({
       files: argv._,
-      // @ts-ignore the coerce function ensures that argv.rule will be string[].
-      rules: argv.rule
+      rules: argv.rule,
+      dry: argv.dry
     });
   } catch (e) {
     console.log(e);
