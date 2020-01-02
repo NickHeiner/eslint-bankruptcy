@@ -7,6 +7,11 @@ const findParentDir = util.promisify(require('find-parent-dir'));
 const {spawn} = require('child_process');
 const log = require('nth-log');
 const _ = require('lodash');
+const {transform} = require('@codemod/core');
+const babel = require('@babel/core');
+const fs = require('fs');
+const readFile = util.promisify(fs.readFile.bind(fs));
+const writeFile = util.promisify(fs.writeFile.bind(fs));
 
 /**
  * @param {object} options 
@@ -32,11 +37,79 @@ async function eslintBankruptcy(options) {
     log.info('Exiting because dry mode is on.');
     return;
   }
+
+  insertComments(violations);
+}
+
+/**
+ * @param {ReturnType<typeof getViolations>} changes 
+ */
+function insertComments(changes) {
+  // @codemod/cli has more functionality, but it'll be painful to use because we'd have to run it in subproc.
+  // Our set of changes to make is in memory, so passing that through the the transform would also be a pain.
+
+  return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations)))
+}
+
+/**
+ * 
+ * @param {string} filePath 
+ * @param {{[line: number]: string[]}} violations 
+ */
+async function insertCommentsInFile(filePath, violations) {
+  log.info({filePath}, 'Modifying file');
+  // I wonder if the line splitting is too naive here.
+  const inputCode = (await readFile(filePath, 'utf8')).split('\n');
+  
+  // I would declare this inline if I knew how to use the TS JSDoc syntax with it.
+  /** @type {string[]} */
+  const initial = [];
+  
+  const outputCode = inputCode.reduce((acc, line, lineIndex) => {
+    const toAppend = [];
+    if (violations[lineIndex]) {
+      toAppend.push(getEslintDisableComent(violations[lineIndex]))
+    }
+    toAppend.push(line);
+    return [...acc, ...toAppend];
+  }, initial).join('\n');
+
+  // inputCode.forEach((line, lineIndex) => {
+  //   if (violations[lineIndex]) {
+  //     outputCode.push()
+  //   }
+  // })
+  
+  // _(violations)
+  //   .toPairs()
+  //   .map(([lineNumber, rules]) => ({lineNumber: Number(lineNumber), rules}))
+  //   .sortBy('lineNumber')
+  //   .forEach(({lineNumber, rules}, violationIndex) => {
+  //     const adjustedLineNumber = lineNumber + violationIndex;
+  //     console.log({adjustedLineNumber})
+  //     inputCode = inputCode.substring(0, adjustedLineNumber) + `\n\n` + inputCode.substring(adjustedLineNumber);
+  //   })
+
+  log.trace(outputCode);
+  // await writeFile(filePath, outputCode);
+}
+
+function getEslintDisableComent(rules) {
+  return `// eslint-disable-next-line ${rules.join(' ')}`
+}
+
+function makeCodemod(violations) {
+  return function codemod(babel) {
+    visitor: {
+
+    }
+  }
 }
 
 /**
  * @param {Array<{filePath: string, messages: Array<{ruleId: string, line: number}>}>} eslintReport 
  * @param {string[]} rules
+ * @return {{[filePath: string]: {[lineNumber: number]: string[]}}}}
  */
 function getViolations(eslintReport, rules) {
   return _(eslintReport)
@@ -45,7 +118,7 @@ function getViolations(eslintReport, rules) {
     .mapValues(entry => _(entry)
       .filter(({ruleId}) => rules.includes(ruleId))
       .groupBy('line')
-      .mapValues(violations => _.map(violations, violation => _.omit(violation, 'filePath', 'line')))
+      .mapValues(violations => _.map(violations, 'ruleId'))
       .value()
     )
     .toPairs()

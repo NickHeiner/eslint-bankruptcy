@@ -1,3 +1,5 @@
 console.log();
 
-console.log();
+function indented() {
+  console.log();
+}
