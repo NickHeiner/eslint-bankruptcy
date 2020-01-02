@@ -67,8 +67,10 @@ async function insertCommentsInFile(filePath, violations) {
   
   const outputCode = inputCode.reduce((acc, line, lineIndex) => {
     const toAppend = [];
-    if (violations[lineIndex]) {
-      toAppend.push(getEslintDisableComent(violations[lineIndex]))
+    // +1 because ESLint gives the line numbers 1-indexed.
+    const violation = violations[lineIndex + 1]
+    if (violation) {
+      toAppend.push(getEslintDisableComent(violation))
     }
     toAppend.push(line);
     return [...acc, ...toAppend];
@@ -90,7 +92,7 @@ async function insertCommentsInFile(filePath, violations) {
   //     inputCode = inputCode.substring(0, adjustedLineNumber) + `\n\n` + inputCode.substring(adjustedLineNumber);
   //   })
 
-  log.trace(outputCode);
+  log.trace({outputCode, filePath});
   // await writeFile(filePath, outputCode);
 }
 
