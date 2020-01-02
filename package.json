@@ -19,6 +19,7 @@
     "dedent": "^0.7.0",
     "find-parent-dir": "^0.3.0",
     "load-json-file": "^6.2.0",
+    "lodash": "^4.17.15",
     "resolve-from": "^5.0.0",
     "yargs": "^15.1.0"
   },

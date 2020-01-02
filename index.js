@@ -4,6 +4,9 @@ const dedent = require('dedent');
 const loadJsonFile = require('load-json-file');
 const util = require('util');
 const findParentDir = util.promisify(require('find-parent-dir'));
+const {spawn} = require('child_process');
+const log = require('nth-log');
+const _ = require('lodash');
 
 /**
  * @param {object} options 
@@ -12,7 +15,14 @@ const findParentDir = util.promisify(require('find-parent-dir'));
  */
 async function eslintBankruptcy(options) {
   const eslintBin = await getEslintBinPath();
-  console.log({eslintBin});
+  const eslintReport = await runEslint(eslintBin, options.files);
+}
+
+/**
+ * @param {Array<{filePath: string, messages: Array<{ruleId: string, line: number}>}>} eslintReport 
+ */
+function getViolations(eslintReport) {
+
 }
 
 async function getEslintBinPath(dirPath = process.cwd()) {
@@ -31,6 +41,46 @@ async function getEslintBinPath(dirPath = process.cwd()) {
   /** @type {{bin: {eslint: string}}} */ 
   const packageJson = await loadJsonFile(packageJsonPath);
   return path.resolve(eslintRoot, packageJson.bin.eslint);
+}
+
+/**
+ * 
+ * @param {string} eslintBinPath 
+ * @param {string[]} files 
+ */
+function runEslint(eslintBinPath, files) {
+  log.debug({eslintBinPath, files}, 'Spawning eslint');
+
+  const childProc = spawn(eslintBinPath, [files.join(' '), '--format', 'json']);
+
+  let stdOut = '';
+  childProc.stdout.on('data', chunk => {
+    const chunkStr = chunk.toString();
+    log.debug(chunkStr);
+    stdOut += chunkStr;
+  });
+  let stdErr = '';
+  childProc.stderr.on('data', chunk => {
+    const chunkStr = chunk.toString();
+    log.debug(chunkStr);
+    stdErr += chunkStr;
+  });
+
+  return new Promise((resolve, reject) => {
+    childProc.on('close', code => {
+      if (!code) {
+        return resolve(null);
+      }
+
+      if (code === 1) {
+        const outputJson = JSON.parse(stdOut);
+        return resolve(outputJson);
+      }
+      const err = new Error('Eslint did not run successfully');
+      Object.assign(err, {stdOut, stdErr, eslintBinPath, files});
+      return reject(err);
+    });
+  });
 }
 
 module.exports = eslintBankruptcy;

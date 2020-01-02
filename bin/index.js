@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 const eslintBankruptcy = require('..');
+const log = require('nth-log');
 
 const {argv} = require('yargs')
   .options({
@@ -26,6 +27,7 @@ async function main() {
     });
   } catch (e) {
     console.log(e);
+    log.error(e);
     process.exit(1);
   }
 }
