@@ -7,8 +7,6 @@ const findParentDir = util.promisify(require('find-parent-dir'));
 const {spawn} = require('child_process');
 const log = require('nth-log');
 const _ = require('lodash');
-const {transform} = require('@codemod/core');
-const babel = require('@babel/core');
 const fs = require('fs');
 const readFile = util.promisify(fs.readFile.bind(fs));
 const writeFile = util.promisify(fs.writeFile.bind(fs));
@@ -77,36 +75,12 @@ async function insertCommentsInFile(filePath, violations) {
     return [...acc, ...toAppend];
   }, initial).join('\n');
 
-  // inputCode.forEach((line, lineIndex) => {
-  //   if (violations[lineIndex]) {
-  //     outputCode.push()
-  //   }
-  // })
-  
-  // _(violations)
-  //   .toPairs()
-  //   .map(([lineNumber, rules]) => ({lineNumber: Number(lineNumber), rules}))
-  //   .sortBy('lineNumber')
-  //   .forEach(({lineNumber, rules}, violationIndex) => {
-  //     const adjustedLineNumber = lineNumber + violationIndex;
-  //     console.log({adjustedLineNumber})
-  //     inputCode = inputCode.substring(0, adjustedLineNumber) + `\n\n` + inputCode.substring(adjustedLineNumber);
-  //   })
-
   log.trace({outputCode, filePath});
-  // await writeFile(filePath, outputCode);
+  await writeFile(filePath, outputCode);
 }
 
 function getEslintDisableComent(rules) {
   return `// eslint-disable-next-line ${rules.join(' ')}`
-}
-
-function makeCodemod(violations) {
-  return function codemod(babel) {
-    visitor: {
-
-    }
-  }
 }
 
 /**
