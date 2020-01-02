@@ -46,7 +46,7 @@ function insertComments(changes) {
   // @codemod/cli has more functionality, but it'll be painful to use because we'd have to run it in subproc.
   // Our set of changes to make is in memory, so passing that through the the transform would also be a pain.
 
-  return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations)))
+  return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations)));
 }
 
 /**
@@ -66,10 +66,10 @@ async function insertCommentsInFile(filePath, violations) {
   const outputCode = inputCode.reduce((acc, line, lineIndex) => {
     const toAppend = [];
     // +1 because ESLint gives the line numbers 1-indexed.
-    const violation = violations[lineIndex + 1]
+    const violation = violations[lineIndex + 1];
     if (violation) {
       const leadingWhitespaceLength = line.length - line.trimLeft().length;
-      toAppend.push(line.substring(0, leadingWhitespaceLength) + getEslintDisableComent(violation))
+      toAppend.push(line.substring(0, leadingWhitespaceLength) + getEslintDisableComent(violation));
     }
     toAppend.push(line);
     return [...acc, ...toAppend];
@@ -80,7 +80,7 @@ async function insertCommentsInFile(filePath, violations) {
 }
 
 function getEslintDisableComent(rules) {
-  return `// eslint-disable-next-line ${rules.join(' ')}`
+  return `// eslint-disable-next-line ${rules.join(' ')}`;
 }
 
 /**
