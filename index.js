@@ -16,13 +16,18 @@ const _ = require('lodash');
 async function eslintBankruptcy(options) {
   const eslintBin = await getEslintBinPath();
   const eslintReport = await runEslint(eslintBin, options.files);
+  const violations = await getViolations(eslintReport, options.rules);
+  log.info({violationCount: violations.length}, `Found ${violations.length} violations.`);
+  log.debug({violationFiles: _.map(violations, 'filePath')});
+  log.trace({violations});
 }
 
 /**
  * @param {Array<{filePath: string, messages: Array<{ruleId: string, line: number}>}>} eslintReport 
+ * @param {string[]} rules
  */
-function getViolations(eslintReport) {
-
+function getViolations(eslintReport, rules) {
+  return eslintReport.filter(({messages}) => messages.some(({ruleId}) => rules.includes(ruleId)));
 }
 
 async function getEslintBinPath(dirPath = process.cwd()) {

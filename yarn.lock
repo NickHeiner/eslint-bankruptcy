@@ -119,6 +119,11 @@
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/find-parent-dir/-/find-parent-dir-0.3.0.tgz#0a8e9b1eb4fa77e6761d7a078daaed92ad2868f1"
   integrity sha1-Co6bHrT6d+Z2HXoHjartkq0oaPE=
 
+"@types/lodash@^4.14.149":
+  version "4.14.149"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/lodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
+  integrity sha1-E0LWPZSMYGKDj7+WEBL3TU5jhEA=
+
 "@types/node@^13.1.2":
   version "13.1.2"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
