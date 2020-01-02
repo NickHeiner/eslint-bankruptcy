@@ -109,6 +109,11 @@
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha1-HBJhu+qhCoBVu8XYq4S3sq/IRqA=
 
+"@types/find-parent-dir@^0.3.0":
+  version "0.3.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/find-parent-dir/-/find-parent-dir-0.3.0.tgz#0a8e9b1eb4fa77e6761d7a078daaed92ad2868f1"
+  integrity sha1-Co6bHrT6d+Z2HXoHjartkq0oaPE=
+
 "@types/node@^13.1.2":
   version "13.1.2"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
@@ -706,6 +711,11 @@ file-entry-cache@^5.0.1:
   integrity sha1-yg9u+m3T1WEzP7FFFQZcL6/fQ5w=
   dependencies:
     flat-cache "^2.0.1"
+
+find-parent-dir@^0.3.0:
+  version "0.3.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/find-parent-dir/-/find-parent-dir-0.3.0.tgz#33c44b429ab2b2f0646299c5f9f718f376ff8d54"
+  integrity sha1-M8RLQpqysvBkYpnF+fcY83b/jVQ=
 
 find-up@^2.0.0, find-up@^2.1.0:
   version "2.1.0"
@@ -1334,6 +1344,11 @@ resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha1-SrzYUq0y3Xuqv+m0DgCjbbXzkuY=
+
+resolve-from@^5.0.0:
+  version "5.0.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
+  integrity sha1-w1IlhD3493bfIcV1V7wIfp39/Gk=
 
 resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.5.0:
   version "1.14.1"

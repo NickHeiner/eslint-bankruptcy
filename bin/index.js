@@ -18,7 +18,7 @@ const {argv} = require('yargs')
 
 async function main() {
   try {
-    console.log(argv)
+    console.log(argv);
     await eslintBankruptcy({
       files: argv._,
       // @ts-ignore the coerce function ensures that argv.rule will be string[].

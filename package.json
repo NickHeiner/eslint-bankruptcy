@@ -7,6 +7,7 @@
   "author": "Nick Heiner <nth23@cornell.edu>",
   "license": "MIT",
   "devDependencies": {
+    "@types/find-parent-dir": "^0.3.0",
     "@types/node": "^13.1.2",
     "@types/yargs": "^13.0.4",
     "eslint-config-nth": "^2.0.1",
@@ -14,12 +15,32 @@
   },
   "dependencies": {
     "eslint": "^6.8.0",
+    "find-parent-dir": "^0.3.0",
+    "resolve-from": "^5.0.0",
     "yargs": "^15.1.0"
   },
   "scripts": {
-    "lint": "eslint index.js bin",
+    "lint": "eslint index.js bin --max-warnings 0",
     "lint:fix": "yarn run lint --fix",
     "typecheck": "yarn run tsc",
     "test": "yarn run lint && yarn run typecheck"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "no-console": "off",
+      "no-use-before-define": [
+        "error",
+        {
+          "functions": false
+        }
+      ]
+    },
+    "extends": [
+      "nth"
+    ]
   }
 }
