@@ -1,0 +1,9 @@
+{
+  "name": "eslint-bankruptcy",
+  "version": "1.0.0",
+  "description": "Codemod to eslint-disable all instances of a rule violation in a codebase",
+  "main": "index.js",
+  "repository": "git@github.com:NickHeiner/eslint-bankruptcy.git",
+  "author": "Nick Heiner <nth23@cornell.edu>",
+  "license": "MIT"
+}
