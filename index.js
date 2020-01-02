@@ -70,7 +70,8 @@ async function insertCommentsInFile(filePath, violations) {
     // +1 because ESLint gives the line numbers 1-indexed.
     const violation = violations[lineIndex + 1]
     if (violation) {
-      toAppend.push(getEslintDisableComent(violation))
+      const leadingWhitespaceLength = line.length - line.trimLeft().length;
+      toAppend.push(line.substring(0, leadingWhitespaceLength) + getEslintDisableComent(violation))
     }
     toAppend.push(line);
     return [...acc, ...toAppend];
