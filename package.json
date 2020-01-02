@@ -7,10 +7,19 @@
   "author": "Nick Heiner <nth23@cornell.edu>",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-nth": "^2.0.1"
+    "@types/node": "^13.1.2",
+    "@types/yargs": "^13.0.4",
+    "eslint-config-nth": "^2.0.1",
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "eslint": "^6.8.0",
     "yargs": "^15.1.0"
+  },
+  "scripts": {
+    "lint": "eslint index.js bin",
+    "lint:fix": "yarn run lint --fix",
+    "typecheck": "yarn run tsc",
+    "test": "yarn run lint && yarn run typecheck"
   }
 }

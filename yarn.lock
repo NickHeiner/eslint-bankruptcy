@@ -109,6 +109,23 @@
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha1-HBJhu+qhCoBVu8XYq4S3sq/IRqA=
 
+"@types/node@^13.1.2":
+  version "13.1.2"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
+  integrity sha1-/pQoW/XgeC4anlqMSCscNEZfo4U=
+
+"@types/yargs-parser@*":
+  version "13.1.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/yargs-parser/-/yargs-parser-13.1.0.tgz#c563aa192f39350a1d18da36c5a8da382bbd8228"
+  integrity sha1-xWOqGS85NQodGNo2xajaOCu9gig=
+
+"@types/yargs@^13.0.4":
+  version "13.0.4"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/yargs/-/yargs-13.0.4.tgz#53d231cebe1a540e7e13727fc1f0d13ad4a9ba3b"
+  integrity sha1-U9Ixzr4aVA5+E3J/wfDROtSpujs=
+  dependencies:
+    "@types/yargs-parser" "*"
+
 acorn-jsx@^5.1.0:
   version "5.1.0"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/acorn-jsx/-/acorn-jsx-5.1.0.tgz#294adb71b57398b0680015f0a38c563ee1db5384"
@@ -1549,6 +1566,11 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha1-CeJJ696FHTseSNJ8EFREZn8XuD0=
+
+typescript@^3.7.4:
+  version "3.7.4"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/typescript/-/typescript-3.7.4.tgz#1743a5ec5fef6a1fa9f3e4708e33c81c73876c19"
+  integrity sha1-F0Ol7F/vah+p8+RwjjPIHHOHbBk=
 
 uri-js@^4.2.2:
   version "4.2.2"
