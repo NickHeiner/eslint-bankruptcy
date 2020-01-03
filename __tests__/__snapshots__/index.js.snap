@@ -32,6 +32,9 @@ exports[`eslint-bankruptcy dry run nest/nested.js 1`] = `
 exports[`eslint-bankruptcy dry run root.js 1`] = `
 "console.log();
 
+// Already has comment
+console.log();
+
 function indented() {
   console.log();
 }"
@@ -74,6 +77,10 @@ exports[`eslint-bankruptcy no-console and camelcase root.js 1`] = `
 "// eslint-disable-next-line no-console
 console.log();
 
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
 function indented() {
   // eslint-disable-next-line no-console
   console.log();
@@ -114,6 +121,10 @@ console.log();
 
 exports[`eslint-bankruptcy only no-console root.js 1`] = `
 "// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
 console.log();
 
 function indented() {
@@ -159,6 +170,11 @@ console.log();
 
 exports[`eslint-bankruptcy set explanation message root.js 1`] = `
 "// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// inserted explanation
 // eslint-disable-next-line no-console
 console.log();
 
