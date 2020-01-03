@@ -11,12 +11,14 @@ const log = require('nth-log');
 /**
  * @param {string} testName 
  * @param {string[]} flagsOtherThanFilePath 
+ * @param {string[]?} filesArgs
  */
-function prepareTest(testName, flagsOtherThanFilePath) {
+function prepareTest(testName, flagsOtherThanFilePath, filesArgs) {
   const tmpDir = createTmpDir({prefix: `${packageJson.name}-${encodeURIComponent(testName)}-`}).name;
   copy(path.resolve(__dirname, '..', 'fixtures'), tmpDir);
   const binPath = path.resolve(__dirname, '..', packageJson.bin['declare-eslint-bankruptcy']);
-  const flags = [tmpDir, ...flagsOtherThanFilePath];
+  const filesToPass = filesArgs ? filesArgs.map(filePath => path.join(tmpDir, filePath)) : [tmpDir];
+  const flags = [...filesToPass, ...flagsOtherThanFilePath];
   log.trace({binPath, flags}, 'Spawning');
   const {status, stdout: stdoutBuffer, stderr: stderrBuffer} = spawnSync(binPath, flags, {
     env: {
@@ -35,7 +37,10 @@ function prepareTest(testName, flagsOtherThanFilePath) {
     throw err;
   }
     
-  return {files: globby.sync(`${tmpDir}/**/*`), rootDir: tmpDir};
+  return {
+    files: filesArgs ? filesToPass : globby.sync(`${tmpDir}/**/*`), 
+    rootDir: tmpDir
+  };
 }
 
 /**
@@ -71,6 +76,11 @@ function assertFilesMatchSnapshots({files, rootDir}) {
 describe('eslint-bankruptcy', () => {
   describe('only no-console', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console']);
+    assertFilesMatchSnapshots(files);
+  });
+
+  describe('only a warning', () => {
+    const files = prepareTest('only a warning', ['--rule', 'eqeqeq'], ['only-warning.js']);
     assertFilesMatchSnapshots(files);
   });
   

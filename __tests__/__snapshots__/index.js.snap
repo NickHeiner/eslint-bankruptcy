@@ -29,6 +29,13 @@ exports[`eslint-bankruptcy dry run nest/nested.js 1`] = `
 "
 `;
 
+exports[`eslint-bankruptcy dry run only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
 exports[`eslint-bankruptcy dry run root.js 1`] = `
 "console.log();
 
@@ -37,7 +44,8 @@ console.log();
 
 function indented() {
   console.log();
-}"
+}
+"
 `;
 
 exports[`eslint-bankruptcy no-console and camelcase already-disabled-file.js 1`] = `
@@ -73,6 +81,13 @@ console.log();
 "
 `;
 
+exports[`eslint-bankruptcy no-console and camelcase only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
 exports[`eslint-bankruptcy no-console and camelcase root.js 1`] = `
 "// eslint-disable-next-line no-console
 console.log();
@@ -84,6 +99,15 @@ console.log();
 function indented() {
   // eslint-disable-next-line no-console
   console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy only a warning only-warning.js 1`] = `
+"let x, y, f;
+// eslint-disable-next-line eqeqeq
+if (x == y) {
+  f();
 }"
 `;
 
@@ -119,6 +143,13 @@ console.log();
 "
 `;
 
+exports[`eslint-bankruptcy only no-console only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
 exports[`eslint-bankruptcy only no-console root.js 1`] = `
 "// eslint-disable-next-line no-console
 console.log();
@@ -130,7 +161,8 @@ console.log();
 function indented() {
   // eslint-disable-next-line no-console
   console.log();
-}"
+}
+"
 `;
 
 exports[`eslint-bankruptcy set explanation message already-disabled-file.js 1`] = `
@@ -168,6 +200,13 @@ console.log();
 "
 `;
 
+exports[`eslint-bankruptcy set explanation message only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
 exports[`eslint-bankruptcy set explanation message root.js 1`] = `
 "// inserted explanation
 // eslint-disable-next-line no-console
@@ -182,5 +221,6 @@ function indented() {
   // inserted explanation
   // eslint-disable-next-line no-console
   console.log();
-}"
+}
+"
 `;

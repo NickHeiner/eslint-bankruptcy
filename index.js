@@ -99,6 +99,10 @@ function getEslintDisableComent(rules) {
  */
 function getViolations(eslintReport, rules) {
   return _(eslintReport)
+  .tap(val => {
+    console.log(val);
+    return val;
+  })
     .flatMapDeep(({filePath, messages}) => _.flatMap(messages, ({ruleId, line}) => ({filePath, ruleId, line})))
     .groupBy('filePath')
     .mapValues(entry => _(entry)
@@ -156,11 +160,7 @@ function runEslint(eslintBinPath, files) {
 
   return new Promise((resolve, reject) => {
     childProc.on('close', code => {
-      if (!code) {
-        return resolve(null);
-      }
-
-      if (code === 1) {
+      if (!code || code === 1) {
         const outputJson = JSON.parse(stdOut);
         return resolve(outputJson);
       }
