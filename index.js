@@ -99,10 +99,6 @@ function getEslintDisableComent(rules) {
  */
 function getViolations(eslintReport, rules) {
   return _(eslintReport)
-  .tap(val => {
-    console.log(val);
-    return val;
-  })
     .flatMapDeep(({filePath, messages}) => _.flatMap(messages, ({ruleId, line}) => ({filePath, ruleId, line})))
     .groupBy('filePath')
     .mapValues(entry => _(entry)

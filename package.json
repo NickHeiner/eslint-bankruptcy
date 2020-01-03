@@ -36,7 +36,7 @@
     "yargs": "^15.1.0"
   },
   "scripts": {
-    "lint": "eslint index.js bin __test__ --max-warnings 0",
+    "lint": "eslint index.js bin __tests__ --max-warnings 0",
     "lint:fix": "yarn run lint --fix",
     "typecheck": "yarn run tsc",
     "test": "yarn run lint && yarn run typecheck && CI=true jest"

@@ -11,7 +11,7 @@ const log = require('nth-log');
 /**
  * @param {string} testName 
  * @param {string[]} flagsOtherThanFilePath 
- * @param {string[]?} filesArgs
+ * @param {string[]} [filesArgs]
  */
 function prepareTest(testName, flagsOtherThanFilePath, filesArgs) {
   const tmpDir = createTmpDir({prefix: `${packageJson.name}-${encodeURIComponent(testName)}-`}).name;
