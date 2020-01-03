@@ -11,5 +11,5 @@
     "strict": true,
     "resolveJsonModule": true
   },
-  "exclude": ["test/fixtures"]
+  "exclude": ["tests/fixtures"]
 }

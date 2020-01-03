@@ -6,14 +6,24 @@
   "repository": "git@github.com:NickHeiner/eslint-bankruptcy.git",
   "author": "Nick Heiner <nth23@cornell.edu>",
   "license": "MIT",
+  "bin": {
+    "declare-eslint-bankruptcy": "./bin/index.js"
+  },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
     "@types/find-parent-dir": "^0.3.0",
+    "@types/jest": "^24.0.25",
     "@types/lodash": "^4.14.149",
+    "@types/ncp": "^2.0.3",
     "@types/node": "^13.1.2",
     "@types/yargs": "^13.0.4",
     "eslint": "^6.8.0",
     "eslint-config-nth": "^2.0.1",
+    "eslint-plugin-jest": "^23.2.0",
+    "globby": "^10.0.1",
+    "jest": "^24.9.0",
+    "ncp": "^2.0.0",
+    "tmp-promise": "^2.0.2",
     "typescript": "^3.7.4"
   },
   "dependencies": {
@@ -25,10 +35,10 @@
     "yargs": "^15.1.0"
   },
   "scripts": {
-    "lint": "eslint index.js bin --max-warnings 0",
+    "lint": "eslint index.js bin test/index.js --max-warnings 0",
     "lint:fix": "yarn run lint --fix",
     "typecheck": "yarn run tsc",
-    "test": "yarn run lint && yarn run typecheck"
+    "test": "yarn run lint && yarn run typecheck && jest"
   },
   "eslintConfig": {
     "env": {
