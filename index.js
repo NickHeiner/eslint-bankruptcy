@@ -79,6 +79,9 @@ async function insertCommentsInFile(filePath, violations) {
   await writeFile(filePath, outputCode);
 }
 
+/**
+ * @param {string[]} rules 
+ */
 function getEslintDisableComent(rules) {
   return `// eslint-disable-next-line ${rules.join(' ')}`;
 }
