@@ -55,8 +55,10 @@ console.log();
 `;
 
 exports[`eslint-bankruptcy no-console and camelcase multiple-rules-one-line.js 1`] = `
-"let foo_bar;
+"// eslint-disable-next-line camelcase
+let foo_bar;
 
+// eslint-disable-next-line no-console camelcase
 console.log(); foo_bar;"
 `;
 
@@ -97,6 +99,7 @@ console.log();
 exports[`eslint-bankruptcy only no-console multiple-rules-one-line.js 1`] = `
 "let foo_bar;
 
+// eslint-disable-next-line no-console
 console.log(); foo_bar;"
 `;
 

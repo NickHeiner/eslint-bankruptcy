@@ -6,6 +6,7 @@ const path = require('path');
 const packageJson = require('../package');
 const {spawnSync} = require('child_process');
 const globby = require('globby');
+const log = require('nth-log');
 
 /**
  * @param {string} testName 
@@ -15,11 +16,20 @@ function prepareTest(testName, flagsOtherThanFilePath) {
   const tmpDir = createTmpDir({prefix: `${packageJson.name}-${encodeURIComponent(testName)}-`}).name;
   copy(path.resolve(__dirname, '..', 'fixtures'), tmpDir);
   const binPath = path.resolve(__dirname, '..', packageJson.bin['declare-eslint-bankruptcy']);
-  const {status, stdout: stdoutBuffer, stderr: stderrBuffer} = spawnSync(binPath, [tmpDir, ...flagsOtherThanFilePath]);
+  const flags = [tmpDir, ...flagsOtherThanFilePath];
+  log.trace({binPath, flags}, 'Spawning');
+  const {status, stdout: stdoutBuffer, stderr: stderrBuffer} = spawnSync(binPath, flags, {
+    env: {
+      ...process.env,
+      loglevel: 'trace'
+    }
+  });
+  const stdout = stdoutBuffer.toString();
+  const stderr = stderrBuffer.toString();
+  if (process.env.loglevel === 'trace') {
+    console.log('stdout', stdout, 'stderr', stderr)
+  }
   if (status) {
-    const stdout = stdoutBuffer.toString();
-    const stderr = stderrBuffer.toString();
-    console.log({stdout, stderr});
     const err = new Error('Spawning declare-eslint-bankruptcy failed');
     Object.assign(err, {stdout, stderr});
     throw err;
@@ -38,6 +48,7 @@ function copy(sourceDir, destDir) {
   files.forEach(filePath => {
     const sourcePath = path.join(sourceDir, filePath);
     const destPath = path.join(destDir, filePath);
+    log.trace({sourcePath, destPath}, 'Copying file');
     mkdirp.sync(path.dirname(destPath));
     fs.writeFileSync(destPath, fs.readFileSync(sourcePath, 'utf8'))
   })
@@ -72,5 +83,4 @@ describe('eslint-bankruptcy', () => {
     const files = prepareTest('dry run', ['--dry-run', '--rule', '--no-console']);
     assertFilesMatchSnapshots(files);
   })
-  
 });

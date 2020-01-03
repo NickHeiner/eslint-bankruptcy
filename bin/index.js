@@ -24,7 +24,7 @@ const {argv} = require('yargs')
 
 async function main() {
   try {
-    console.log(argv);
+    log.trace(argv);
     await eslintBankruptcy({
       files: argv._,
       rules: argv.rule,
