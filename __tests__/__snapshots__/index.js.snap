@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`eslint-bankruptcy only no-console already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy only no-console nest/nested.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}"
+`;

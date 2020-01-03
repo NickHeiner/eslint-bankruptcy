@@ -1,66 +1,65 @@
-const {dir: createTmpDir} = require('tmp-promise');
-const {promisify} = require('util');
-const ncp = promisify(require('ncp'));
+const {dirSync: createTmpDir} = require('tmp');
+const mkdirp = require('mkdirp');
 const fs = require('fs');
 const path = require('path');
 // @ts-ignore TS erroneously complains about this require.
 const packageJson = require('../package');
-const {spawn} = require('child_process');
+const {spawnSync} = require('child_process');
 const globby = require('globby');
 
 /**
  * @param {string} testName 
  * @param {string[]} flagsOtherThanFilePath 
  */
-async function prepareTest(testName, flagsOtherThanFilePath) {
-  const tmpDir = (await createTmpDir({prefix: `${packageJson.name}-${testName}-`})).path;
-  await ncp(path.resolve(__dirname, '..', 'fixtures'), tmpDir);
+function prepareTest(testName, flagsOtherThanFilePath) {
+  const tmpDir = createTmpDir({prefix: `${packageJson.name}-${encodeURIComponent(testName)}-`}).name;
+  copy(path.resolve(__dirname, '..', 'fixtures'), tmpDir);
   const binPath = path.resolve(__dirname, '..', packageJson.bin['declare-eslint-bankruptcy']);
-  const childProc = spawn(binPath, [tmpDir, ...flagsOtherThanFilePath]);
-  await new Promise((resolve, reject) => {
-    childProc.on('close', code => {
-      if (code) {
-        reject(code);
-      }
-      resolve(code);
-    })
-  })
-  return globby('**/*', {cwd: tmpDir});
+  const {status, stdout: stdoutBuffer, stderr: stderrBuffer} = spawnSync(binPath, [tmpDir, ...flagsOtherThanFilePath]);
+  if (status) {
+    const stdout = stdoutBuffer.toString();
+    const stderr = stderrBuffer.toString();
+    console.log({stdout, stderr});
+    const err = new Error('Spawning declare-eslint-bankruptcy failed');
+    Object.assign(err, {stdout, stderr});
+    throw err;
+  }
+    
+  return {files: globby.sync(`${tmpDir}/**/*`), rootDir: tmpDir};
 }
 
-function assertFilesMatchSnapshots(files) {
+/**
+ * 
+ * @param {string} sourceDir 
+ * @param {string} destDir 
+ */
+function copy(sourceDir, destDir) {
+  const files = globby.sync(['**/*', '**/.*'], {cwd: sourceDir});
   files.forEach(filePath => {
-    it(filePath, () => {
+    const sourcePath = path.join(sourceDir, filePath);
+    const destPath = path.join(destDir, filePath);
+    mkdirp.sync(path.dirname(destPath));
+    fs.writeFileSync(destPath, fs.readFileSync(sourcePath, 'utf8'))
+  })
+}
+
+/**
+ * 
+ * @param {string[]} files 
+ */
+function assertFilesMatchSnapshots({files, rootDir}) {
+  files.forEach(filePath => {
+    it(path.relative(rootDir, filePath), () => {
       expect(fs.readFileSync(filePath, 'utf8')).toMatchSnapshot();
     })
   })
 }
 
-const count = {};
-async function log(message) {
-  await new Promise(resolve => setTimeout(resolve));
-  count[message] = count[message] || -1;
-  count[message]++;
-  console.log(message, count[message]);
-}
-
 describe('eslint-bankruptcy', () => {
-  log('top level await');
-
-  beforeAll(() => log('beforeAll'));
-  beforeEach(() => log('beforeEach'));
-
-  it('dummy test', () => {});
-
-  // describe('only no-console', () => {
-  //   let files;
-
-  //   beforeAll(async () => {
-  //     files = await prepareTest('only no-console', ['--rule', 'no-console'])
-  //   })
-
-  //   assertFilesMatchSnapshots(files);
-  // })
+  describe('only no-console', () => {
+    const files = prepareTest('only no-console', ['--rule', 'no-console']);
+    assertFilesMatchSnapshots(files);
+  })
   
   // describe('dry run');
   // describe('no-console and camelcase');

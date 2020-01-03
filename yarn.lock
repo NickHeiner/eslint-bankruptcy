@@ -426,6 +426,13 @@
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha1-PcoOPzOyAPx9ETnAzZbBJoyt/Z0=
 
+"@types/mkdirp@^0.5.2":
+  version "0.5.2"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/mkdirp/-/mkdirp-0.5.2.tgz#503aacfe5cc2703d5484326b1b27efa67a339c1f"
+  integrity sha1-UDqs/lzCcD1UhDJrGyfvpnoznB8=
+  dependencies:
+    "@types/node" "*"
+
 "@types/ncp@^2.0.3":
   version "2.0.3"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/ncp/-/ncp-2.0.3.tgz#68429472698a68f2c85a984932e9d8014d5f2ed0"
@@ -442,6 +449,11 @@
   version "1.0.1"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha1-CoUdO9lkmPolwzq3J47TvWXwbD4=
+
+"@types/tmp@^0.1.0":
+  version "0.1.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/@types/tmp/-/tmp-0.1.0.tgz#19cf73a7bcf641965485119726397a096f0049bd"
+  integrity sha1-Gc9zp7z2QZZUhRGXJjl6CW8ASb0=
 
 "@types/yargs-parser@*":
   version "13.1.0"
@@ -2980,11 +2992,6 @@ natural-compare@^1.4.0:
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-ncp@^2.0.0:
-  version "2.0.0"
-  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
-  integrity sha1-GVoh1sRuNh0vsSgbo4uR6d9727M=
-
 neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
@@ -4055,26 +4062,19 @@ through@^2.3.6:
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
-tmp-promise@^2.0.2:
-  version "2.0.2"
-  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/tmp-promise/-/tmp-promise-2.0.2.tgz#ee605edb10f100954be5dd8b9dbe1bfd56194202"
-  integrity sha1-7mBe2xDxAJVL5d2Lnb4b/VYZQgI=
-  dependencies:
-    tmp "0.1.0"
-
-tmp@0.1.0:
-  version "0.1.0"
-  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/tmp/-/tmp-0.1.0.tgz#ee434a4e22543082e294ba6201dcc6eafefa2877"
-  integrity sha1-7kNKTiJUMILilLpiAdzG6v76KHc=
-  dependencies:
-    rimraf "^2.6.3"
-
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://artifacts.netflix.com/api/npm/npm-netflix/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
   integrity sha1-bTQzWIl2jSGyvNoKonfO07G/rfk=
   dependencies:
     os-tmpdir "~1.0.2"
+
+tmp@^0.1.0:
+  version "0.1.0"
+  resolved "https://artifacts.netflix.com/api/npm/npm-netflix/tmp/-/tmp-0.1.0.tgz#ee434a4e22543082e294ba6201dcc6eafefa2877"
+  integrity sha1-7kNKTiJUMILilLpiAdzG6v76KHc=
+  dependencies:
+    rimraf "^2.6.3"
 
 tmpl@1.0.x:
   version "1.0.4"
