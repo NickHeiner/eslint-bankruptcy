@@ -45,7 +45,9 @@ function copy(sourceDir, destDir) {
 
 /**
  * 
- * @param {string[]} files 
+ * @param {object} options 
+ * @param {string[]} options.files
+ * @param {string} options.rootDir
  */
 function assertFilesMatchSnapshots({files, rootDir}) {
   files.forEach(filePath => {
@@ -60,7 +62,15 @@ describe('eslint-bankruptcy', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console']);
     assertFilesMatchSnapshots(files);
   })
+
+  describe('no-console and camelcase', () => {
+    const files = prepareTest('only no-console', ['--rule', 'no-console', '--rule', 'camelcase']);
+    assertFilesMatchSnapshots(files);
+  })
+
+  describe('dry run', () => {
+    const files = prepareTest('dry run', ['--dry-run', '--rule', '--no-console']);
+    assertFilesMatchSnapshots(files);
+  })
   
-  // describe('dry run');
-  // describe('no-console and camelcase');
 });

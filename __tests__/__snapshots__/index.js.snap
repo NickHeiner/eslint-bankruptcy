@@ -1,5 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`eslint-bankruptcy dry run already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run already-disabled-line.js 1`] = `
+"console.log();
+
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy dry run nest/nested.js 1`] = `
+"console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run root.js 1`] = `
+"console.log();
+
+function indented() {
+  console.log();
+}"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase nest/nested.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}"
+`;
+
 exports[`eslint-bankruptcy only no-console already-disabled-file.js 1`] = `
 "/* eslint-disable no-console */
 
