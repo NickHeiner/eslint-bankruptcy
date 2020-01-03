@@ -1,7 +1,7 @@
 name: Node CI
 
 on: 
-  push: true
+  push:
   schedule:
   - cron: "0 0 * * 0"
 
