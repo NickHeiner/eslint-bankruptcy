@@ -118,3 +118,49 @@ function indented() {
   console.log();
 }"
 `;
+
+exports[`eslint-bankruptcy set explanation message already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message already-disabled-line.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+// inserted explanation
+// eslint-disable-next-line no-console
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy set explanation message nest/nested.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message root.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // inserted explanation
+  // eslint-disable-next-line no-console
+  console.log();
+}"
+`;

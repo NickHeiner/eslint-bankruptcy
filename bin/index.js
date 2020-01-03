@@ -16,6 +16,11 @@ const {argv} = require('yargs')
       alias: 'd',
       boolean: true,
       description: 'If true, print a description of which files will be updated, but do not actually change anything.'
+    },
+    explanation: {
+      alias: 'e',
+      string: true,
+      description: 'Highly recommended. A message that will be included with the disable comments.'
     }
   });
 
@@ -28,7 +33,8 @@ async function main() {
     await eslintBankruptcy({
       files: argv._,
       rules: argv.rule,
-      dry: argv.dry
+      dry: argv.dry,
+      explanation: argv.explanation
     });
   } catch (e) {
     console.log(e);

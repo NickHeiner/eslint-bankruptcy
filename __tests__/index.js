@@ -73,6 +73,11 @@ describe('eslint-bankruptcy', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console']);
     assertFilesMatchSnapshots(files);
   })
+  
+  describe('set explanation message', () => {
+    const files = prepareTest('only no-console', ['--rule', 'no-console', '--explanation', 'inserted explanation']);
+    assertFilesMatchSnapshots(files);
+  })
 
   describe('no-console and camelcase', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console', '--rule', 'camelcase']);

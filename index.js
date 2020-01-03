@@ -16,6 +16,7 @@ const writeFile = util.promisify(fs.writeFile.bind(fs));
  * @param {string[]} options.files
  * @param {string[]} options.rules
  * @param {boolean | undefined} options.dry
+ * @param {string} options.explanation
  */
 async function eslintBankruptcy(options) {
   const eslintBin = await getEslintBinPath();
@@ -36,25 +37,26 @@ async function eslintBankruptcy(options) {
     return;
   }
 
-  insertComments(violations);
+  insertComments(violations, options.explanation);
 }
 
 /**
  * @param {ReturnType<typeof getViolations>} changes 
+ * @param {string} explanation
  */
-function insertComments(changes) {
+function insertComments(changes, explanation) {
   // @codemod/cli has more functionality, but it'll be painful to use because we'd have to run it in subproc.
   // Our set of changes to make is in memory, so passing that through the the transform would also be a pain.
 
-  return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations)));
+  return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations, explanation)));
 }
 
 /**
- * 
  * @param {string} filePath 
  * @param {{[line: number]: string[]}} violations 
+ * @param {string} explanation 
  */
-async function insertCommentsInFile(filePath, violations) {
+async function insertCommentsInFile(filePath, violations, explanation) {
   log.info({filePath}, 'Modifying file');
   // I wonder if the line splitting is too naive here.
   const inputCode = (await readFile(filePath, 'utf8')).split('\n');
@@ -69,7 +71,11 @@ async function insertCommentsInFile(filePath, violations) {
     const violation = violations[lineIndex + 1];
     if (violation) {
       const leadingWhitespaceLength = line.length - line.trimLeft().length;
-      toAppend.push(line.substring(0, leadingWhitespaceLength) + getEslintDisableComent(violation));
+      const leadingWhitespace = line.substring(0, leadingWhitespaceLength);
+      if (explanation) {
+        toAppend.push(`${leadingWhitespace}// ${explanation}`);
+      }
+      toAppend.push(leadingWhitespace + getEslintDisableComent(violation));
     }
     toAppend.push(line);
     return [...acc, ...toAppend];
