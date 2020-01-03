@@ -32,6 +32,7 @@
     "find-parent-dir": "^0.3.0",
     "load-json-file": "^6.2.0",
     "lodash": "^4.17.15",
+    "nth-log": "^1.0.0",
     "resolve-from": "^5.0.0",
     "yargs": "^15.1.0"
   },
