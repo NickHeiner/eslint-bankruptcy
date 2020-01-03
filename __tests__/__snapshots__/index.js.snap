@@ -12,6 +12,7 @@ console.log();
 exports[`eslint-bankruptcy dry run already-disabled-line.js 1`] = `
 "console.log();
 
+// Already disabled
 // eslint-disable-next-line no-console
 console.log();
 "
@@ -49,6 +50,7 @@ exports[`eslint-bankruptcy no-console and camelcase already-disabled-line.js 1`]
 "// eslint-disable-next-line no-console
 console.log();
 
+// Already disabled
 // eslint-disable-next-line no-console
 console.log();
 "
@@ -91,6 +93,7 @@ exports[`eslint-bankruptcy only no-console already-disabled-line.js 1`] = `
 "// eslint-disable-next-line no-console
 console.log();
 
+// Already disabled
 // eslint-disable-next-line no-console
 console.log();
 "
@@ -133,6 +136,7 @@ exports[`eslint-bankruptcy set explanation message already-disabled-line.js 1`] 
 // eslint-disable-next-line no-console
 console.log();
 
+// Already disabled
 // eslint-disable-next-line no-console
 console.log();
 "
