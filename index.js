@@ -16,7 +16,7 @@ const writeFile = util.promisify(fs.writeFile.bind(fs));
  * @param {string[]} options.files
  * @param {string[]} options.rules
  * @param {boolean | undefined} options.dry
- * @param {string} options.explanation
+ * @param {string | undefined} options.explanation
  */
 async function eslintBankruptcy(options) {
   const eslintBin = await getEslintBinPath();
@@ -42,7 +42,7 @@ async function eslintBankruptcy(options) {
 
 /**
  * @param {ReturnType<typeof getViolations>} changes 
- * @param {string} explanation
+ * @param {string | undefined} explanation
  */
 function insertComments(changes, explanation) {
   // @codemod/cli has more functionality, but it'll be painful to use because we'd have to run it in subproc.
@@ -54,7 +54,7 @@ function insertComments(changes, explanation) {
 /**
  * @param {string} filePath 
  * @param {{[line: number]: string[]}} violations 
- * @param {string} explanation 
+ * @param {string | undefined} explanation 
  */
 async function insertCommentsInFile(filePath, violations, explanation) {
   log.info({filePath}, 'Modifying file');

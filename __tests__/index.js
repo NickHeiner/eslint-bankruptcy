@@ -27,7 +27,7 @@ function prepareTest(testName, flagsOtherThanFilePath) {
   const stdout = stdoutBuffer.toString();
   const stderr = stderrBuffer.toString();
   if (process.env.loglevel === 'trace') {
-    console.log('stdout', stdout, 'stderr', stderr)
+    console.log('stdout', stdout, 'stderr', stderr);
   }
   if (status) {
     const err = new Error('Spawning declare-eslint-bankruptcy failed');
@@ -50,8 +50,8 @@ function copy(sourceDir, destDir) {
     const destPath = path.join(destDir, filePath);
     log.trace({sourcePath, destPath}, 'Copying file');
     mkdirp.sync(path.dirname(destPath));
-    fs.writeFileSync(destPath, fs.readFileSync(sourcePath, 'utf8'))
-  })
+    fs.writeFileSync(destPath, fs.readFileSync(sourcePath, 'utf8'));
+  });
 }
 
 /**
@@ -64,28 +64,28 @@ function assertFilesMatchSnapshots({files, rootDir}) {
   files.forEach(filePath => {
     it(path.relative(rootDir, filePath), () => {
       expect(fs.readFileSync(filePath, 'utf8')).toMatchSnapshot();
-    })
-  })
+    });
+  });
 }
 
 describe('eslint-bankruptcy', () => {
   describe('only no-console', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console']);
     assertFilesMatchSnapshots(files);
-  })
+  });
   
   describe('set explanation message', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console', '--explanation', 'inserted explanation']);
     assertFilesMatchSnapshots(files);
-  })
+  });
 
   describe('no-console and camelcase', () => {
     const files = prepareTest('only no-console', ['--rule', 'no-console', '--rule', 'camelcase']);
     assertFilesMatchSnapshots(files);
-  })
+  });
 
   describe('dry run', () => {
     const files = prepareTest('dry run', ['--dry-run', '--rule', '--no-console']);
     assertFilesMatchSnapshots(files);
-  })
+  });
 });

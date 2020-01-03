@@ -30,6 +30,12 @@ const {argv} = require('yargs')
 async function main() {
   try {
     log.trace(argv);
+
+    if (!argv._.length) {
+      throw new Error(
+        'Passing a set of files to declare-eslint-bankruptcy is required. Pass it as the sole positional argument.'
+      );
+    }
     await eslintBankruptcy({
       files: argv._,
       rules: argv.rule,
