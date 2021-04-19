@@ -79,6 +79,15 @@ describe('eslint-bankruptcy', () => {
     assertFilesMatchSnapshots(files);
   });
 
+  describe('multiple explicit file paths', () => {
+    const files = prepareTest(
+      'multiple explicit file paths', 
+      ['--rule', 'no-console'], 
+      ['root.js', 'already-disabled-line.js']
+    );
+    assertFilesMatchSnapshots(files);
+  });
+
   describe('only a warning', () => {
     const files = prepareTest('only a warning', ['--rule', 'eqeqeq'], ['only-warning.js']);
     assertFilesMatchSnapshots(files);

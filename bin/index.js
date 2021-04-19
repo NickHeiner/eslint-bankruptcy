@@ -1,13 +1,19 @@
 #! /usr/bin/env node
 
 const eslintBankruptcy = require('..');
-const log = require('nth-log');
 
 // This is valid, but the types don't know it.
-// @ts-expect-error
+// @ts-ignore
 require('hard-rejection/register');
 
-const {argv} = require('yargs')
+require('yargs')
+  .command('$0 <files...>', '', yargs => {
+    yargs.positional('files', {
+      describe: 'Files to modify',
+      string: true,
+      required: true
+    });
+  }, main)
   .options({
     rule: {
       alias: 'r',
@@ -26,25 +32,28 @@ const {argv} = require('yargs')
       string: true,
       description: 'Highly recommended. A message that will be included with the disable comments.'
     }
-  });
+  })
+  .argv;
 
 // TODO: add ability to specify an eslint instance / command path
 // Possibly add ability to pass through arbitrary other args to eslint?
 
-async function main() {
-  log.trace(argv);
+/**
+ * I'm not sure how to these types flow automatically.
+ * @param {Record<'files' | 'rule' | 'dry' | 'explanation', any>} argv 
+ */
+async function main(argv) {
+  console.log(argv);
 
-  if (!argv._.length) {
+  if (!argv.files.length) {
     throw new Error(
       'Passing a set of files to declare-eslint-bankruptcy is required. Pass it as the sole positional argument.'
     );
   }
   await eslintBankruptcy({
-    files: argv._,
+    files: argv.files,
     rules: argv.rule,
     dry: argv.dry,
     explanation: argv.explanation
   });
 }
-
-main();
