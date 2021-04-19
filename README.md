@@ -49,6 +49,15 @@ $ declare-eslint-bankruptcy src --rule no-import-my-legacy-module --explanation 
 import 'my-legacy-module'
 ```
 
+### Custom ESLint Invocation
+By default, this project find the ESLint bin in your project, then invoke a command like:
+
+```
+$ eslint path/to/your/files --format json
+```
+
+However, some projects have custom ESLint commands (e.g. passing custom args, using a custom ESLint bin wrapper, etc.) This is not currently supported.
+
 ### When Not To Use This
 * When you want to add a new rule, and there are violations in your existing code, but they can be fixed with a codemod or ESLint's autofixer.
 
