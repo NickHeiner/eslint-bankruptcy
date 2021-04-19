@@ -35,6 +35,18 @@ function f() {
 
 Next, you add `no-return-assign` as an `error` in your `.eslintrc`. Future code, anywhere in your codebase, will have to respect the new rule. Existing code does not need to be further modified.
 
+**Highly recommended:** pass `--explanation` to provide additional context:
+
+```
+$ declare-eslint-bankruptcy src --rule no-import-my-legacy-module --explanation "Use MyNewModule instead."
+```
+
+```js
+// Use MyNewModule instead.
+// eslint-disable-next-line no-import-my-legacy-module
+import 'my-legacy-module'
+```
+
 ### When Not To Use This
 * When you want to add a new rule, and there are violations in your existing code, but they can be fixed with a codemod or ESLint's autofixer.
 
