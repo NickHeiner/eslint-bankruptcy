@@ -3,6 +3,10 @@
 const eslintBankruptcy = require('..');
 const log = require('nth-log');
 
+// This is valid, but the types don't know it.
+// @ts-expect-error
+require('hard-rejection/register');
+
 const {argv} = require('yargs')
   .options({
     rule: {
@@ -28,25 +32,19 @@ const {argv} = require('yargs')
 // Possibly add ability to pass through arbitrary other args to eslint?
 
 async function main() {
-  try {
-    log.trace(argv);
+  log.trace(argv);
 
-    if (!argv._.length) {
-      throw new Error(
-        'Passing a set of files to declare-eslint-bankruptcy is required. Pass it as the sole positional argument.'
-      );
-    }
-    await eslintBankruptcy({
-      files: argv._,
-      rules: argv.rule,
-      dry: argv.dry,
-      explanation: argv.explanation
-    });
-  } catch (e) {
-    console.log(e);
-    log.error(e);
-    process.exit(1);
+  if (!argv._.length) {
+    throw new Error(
+      'Passing a set of files to declare-eslint-bankruptcy is required. Pass it as the sole positional argument.'
+    );
   }
+  await eslintBankruptcy({
+    files: argv._,
+    rules: argv.rule,
+    dry: argv.dry,
+    explanation: argv.explanation
+  });
 }
 
 main();

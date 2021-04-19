@@ -384,6 +384,13 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/hard-rejection@2.0.0":
+  version "2.0.0"
+  resolved "https://artifacts.netflix.net/api/npm/npm-netflix/@types/hard-rejection/-/hard-rejection-2.0.0.tgz#38e6b979936d463bed92afeb03bad8c1c2d92f2b"
+  integrity sha1-OOa5eZNtRjvtkq/rA7rYwcLZLys=
+  dependencies:
+    hard-rejection "*"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1899,6 +1906,11 @@ har-validator@~5.1.0:
   dependencies:
     ajv "^6.5.5"
     har-schema "^2.0.0"
+
+hard-rejection@*, hard-rejection@2.1.0:
+  version "2.1.0"
+  resolved "https://artifacts.netflix.net/api/npm/npm-netflix/hard-rejection/-/hard-rejection-2.1.0.tgz#1c6eda5c1685c63942766d79bb40ae773cecd883"
+  integrity sha1-HG7aXBaFxjlCdm15u0Cudzzs2IM=
 
 has-flag@^3.0.0:
   version "3.0.0"

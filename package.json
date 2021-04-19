@@ -9,7 +9,13 @@
   "bin": {
     "declare-eslint-bankruptcy": "./bin/index.js"
   },
-  "keywords": ["ast", "command-line-tool", "cli", "utility", "eslint"],
+  "keywords": [
+    "ast",
+    "command-line-tool",
+    "cli",
+    "utility",
+    "eslint"
+  ],
   "devDependencies": {
     "@types/dedent": "^0.7.0",
     "@types/find-parent-dir": "^0.3.0",
@@ -29,8 +35,10 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "@types/hard-rejection": "2.0.0",
     "dedent": "^0.7.0",
     "find-parent-dir": "^0.3.0",
+    "hard-rejection": "2.1.0",
     "load-json-file": "^6.2.0",
     "lodash": "^4.17.15",
     "nth-log": "^1.0.0",
