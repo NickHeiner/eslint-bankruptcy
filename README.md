@@ -8,11 +8,13 @@ Let's say you have an existing codebase, and you'd like to add a new lint rule. 
 1. Turn the rule on as a `warning`. However, this is ineffective because devs ignore warnings.
 1. Use a path-specific `.eslintrc` to only enable the rule for greenfield parts of your codebase. However, this is cumbersome, and you won't get protection for newly added code in non-greenfield areas.
 
-None of these options are great. Enter this tool. If you wanted to enable the rule `no-return-assign`, you'd run:
+None of these options are great. Enter this tool. If you wanted to enable the rule `no-return-assign`, you'd:
 
-```
-$ declare-eslint-bankruptcy src --rule no-return-assign
-```
+1. Add `no-return-assign` as an `error` in your `.eslintrc`. (This tool ignores `warning`s.)
+1. Run:
+  ```
+  $ declare-eslint-bankruptcy src --rule no-return-assign
+  ```
 
 The command will add an `eslint-disable-next-line` to every violation of the specified rule(s). It'll change your code from:
 
@@ -33,7 +35,7 @@ function f() {
 }
 ```
 
-Next, you add `no-return-assign` as an `error` in your `.eslintrc`. Future code, anywhere in your codebase, will have to respect the new rule. Existing code does not need to be further modified.
+Future code, anywhere in your codebase, will have to respect the new rule. Existing code does not need to be further modified.
 
 **Highly recommended:** pass `--explanation` to provide additional context:
 

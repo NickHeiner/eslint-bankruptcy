@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@types/hard-rejection": "2.0.0",
+    "execa": "5.0.0",
     "find-parent-dir": "^0.3.0",
     "hard-rejection": "2.1.0",
     "load-json-file": "^6.2.0",

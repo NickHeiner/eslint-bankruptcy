@@ -48,6 +48,31 @@ function indented() {
 "
 `;
 
+exports[`eslint-bankruptcy multiple explicit file paths already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy multiple explicit file paths root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
 exports[`eslint-bankruptcy no-console and camelcase already-disabled-file.js 1`] = `
 "/* eslint-disable no-console */
 
@@ -105,7 +130,6 @@ function indented() {
 
 exports[`eslint-bankruptcy only a warning only-warning.js 1`] = `
 "let x, y, f;
-// eslint-disable-next-line eqeqeq
 if (x == y) {
   f();
 }"

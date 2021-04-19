@@ -3,7 +3,7 @@ const path = require('path');
 const loadJsonFile = require('load-json-file');
 const util = require('util');
 const findParentDir = util.promisify(require('find-parent-dir'));
-const {spawn} = require('child_process');
+const execa = require('execa');
 const log = require('nth-log');
 const _ = require('lodash');
 const fs = require('fs');
@@ -132,35 +132,23 @@ async function getEslintBinPath(dirPath = process.cwd()) {
  * @param {string} eslintBinPath 
  * @param {string[]} files 
  */
-function runEslint(eslintBinPath, files) {
+async function runEslint(eslintBinPath, files) {
   log.debug({eslintBinPath, files}, 'Spawning eslint');
 
-  const childProc = spawn(eslintBinPath, [files.join(' '), '--format', 'json']);
-
-  let stdOut = '';
-  childProc.stdout.on('data', chunk => {
-    const chunkStr = chunk.toString();
-    log.debug(chunkStr);
-    stdOut += chunkStr;
-  });
-  let stdErr = '';
-  childProc.stderr.on('data', chunk => {
-    const chunkStr = chunk.toString();
-    log.debug(chunkStr);
-    stdErr += chunkStr;
-  });
-
-  return new Promise((resolve, reject) => {
-    childProc.on('close', code => {
-      if (!code || code === 1) {
-        const outputJson = JSON.parse(stdOut);
-        return resolve(outputJson);
-      }
-      const err = new Error('Eslint did not run successfully');
-      Object.assign(err, {stdOut, stdErr, eslintBinPath, files});
-      return reject(err);
-    });
-  });
+  try {
+    const {stdout, stderr} = await execa(eslintBinPath, [...files, '--format', 'json']);
+    log.debug({stdout, stderr});
+  } catch (e) {
+    if (!e.code || e.code === 1) {
+      return JSON.parse(e.stdout);
+    }
+    console.log(e.stderr);
+    const err = new Error(
+      'Eslint did not run successfully. Did you run this command from within the project ' +
+      "you're trying to transform? This is necessary so Eslint can load your project's config.");
+    Object.assign(err, {eslintBinPath, files, e});
+    throw err;
+  }
 }
 
 module.exports = eslintBankruptcy;

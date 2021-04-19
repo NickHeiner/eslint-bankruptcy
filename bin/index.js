@@ -43,8 +43,6 @@ require('yargs')
  * @param {Record<'files' | 'rule' | 'dry' | 'explanation', any>} argv 
  */
 async function main(argv) {
-  console.log(argv);
-
   if (!argv.files.length) {
     throw new Error(
       'Passing a set of files to declare-eslint-bankruptcy is required. Pass it as the sole positional argument.'
