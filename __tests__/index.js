@@ -88,8 +88,8 @@ describe('eslint-bankruptcy', () => {
     assertFilesMatchSnapshots(files);
   });
 
-  describe('only a warning', () => {
-    const files = prepareTest('only a warning', ['--rule', 'eqeqeq'], ['only-warning.js']);
+  describe('warnings are ignored', () => {
+    const files = prepareTest('warnings are ignored', ['--rule', 'eqeqeq'], ['only-warning.js']);
     assertFilesMatchSnapshots(files);
   });
   

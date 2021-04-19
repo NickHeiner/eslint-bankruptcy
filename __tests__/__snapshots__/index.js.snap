@@ -128,13 +128,6 @@ function indented() {
 "
 `;
 
-exports[`eslint-bankruptcy only a warning only-warning.js 1`] = `
-"let x, y, f;
-if (x == y) {
-  f();
-}"
-`;
-
 exports[`eslint-bankruptcy only no-console already-disabled-file.js 1`] = `
 "/* eslint-disable no-console */
 
@@ -247,4 +240,11 @@ function indented() {
   console.log();
 }
 "
+`;
+
+exports[`eslint-bankruptcy warnings are ignored only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
 `;
