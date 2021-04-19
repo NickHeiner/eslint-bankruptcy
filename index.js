@@ -1,6 +1,5 @@
 const resolveFrom = require('resolve-from');
 const path = require('path');
-const dedent = require('dedent');
 const loadJsonFile = require('load-json-file');
 const util = require('util');
 const findParentDir = util.promisify(require('find-parent-dir'));
@@ -46,7 +45,7 @@ async function eslintBankruptcy(options) {
  */
 function insertComments(changes, explanation) {
   // @codemod/cli has more functionality, but it'll be painful to use because we'd have to run it in subproc.
-  // Our set of changes to make is in memory, so passing that through the the transform would also be a pain.
+  // Our set of changes to make is in memory, so passing that through to the transform would also be a pain.
 
   return Promise.all(_.map(changes, (violations, filePath) => insertCommentsInFile(filePath, violations, explanation)));
 }
@@ -117,13 +116,10 @@ async function getEslintBinPath(dirPath = process.cwd()) {
   const eslintMainPath = resolveFrom(dirPath, 'eslint');
   const eslintRoot = await findParentDir(eslintMainPath, 'package.json');
   if (!eslintRoot) {
-    throw new Error(dedent`
-      eslint-bankruptcy could not find an eslint instance to run. To resolve this:
-
-      1. Run this command from a directory in which "require('eslint')" works.
-      2. Pass an eslint instance to use.
-      3. Pass a directory from which to resolve eslint.
-    `);
+    throw new Error('eslint-bankruptcy could not find an eslint instance to run. ' + 
+    // The rule is over-zealous.
+    // eslint-disable-next-line quotes 
+      `To resolve this, run this command from a directory in which "require('eslint')" works.`);
   }
   const packageJsonPath = path.join(eslintRoot, 'package.json');
   /** @type {{bin: {eslint: string}}} */ 

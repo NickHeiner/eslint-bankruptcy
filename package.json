@@ -17,7 +17,6 @@
     "eslint"
   ],
   "devDependencies": {
-    "@types/dedent": "^0.7.0",
     "@types/find-parent-dir": "^0.3.0",
     "@types/jest": "^24.0.25",
     "@types/lodash": "^4.14.149",
@@ -36,7 +35,6 @@
   },
   "dependencies": {
     "@types/hard-rejection": "2.0.0",
-    "dedent": "^0.7.0",
     "find-parent-dir": "^0.3.0",
     "hard-rejection": "2.1.0",
     "load-json-file": "^6.2.0",
