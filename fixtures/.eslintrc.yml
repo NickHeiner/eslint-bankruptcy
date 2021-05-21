@@ -1,0 +1,7 @@
+parserOptions:
+  ecmaVersion: 2019
+
+rules: 
+  no-console: 2
+  camelcase: 2
+  eqeqeq: 1

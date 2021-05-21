@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`eslint-bankruptcy dry run already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run already-disabled-line.js 1`] = `
+"console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy dry run nest/nested.js 1`] = `
+"console.log();
+"
+`;
+
+exports[`eslint-bankruptcy dry run only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
+exports[`eslint-bankruptcy dry run root.js 1`] = `
+"console.log();
+
+// Already has comment
+console.log();
+
+function indented() {
+  console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy multiple explicit file paths already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy multiple explicit file paths root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase multiple-rules-one-line.js 1`] = `
+"// eslint-disable-next-line camelcase
+let foo_bar;
+
+// eslint-disable-next-line no-console camelcase
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase nest/nested.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
+exports[`eslint-bankruptcy no-console and camelcase root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy only no-console already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+// eslint-disable-next-line no-console
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy only no-console nest/nested.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy only no-console only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
+exports[`eslint-bankruptcy only no-console root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message already-disabled-line.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+// inserted explanation
+// eslint-disable-next-line no-console
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy set explanation message nest/nested.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy set explanation message only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
+exports[`eslint-bankruptcy set explanation message root.js 1`] = `
+"// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// inserted explanation
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // inserted explanation
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
+exports[`eslint-bankruptcy warnings are ignored only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
