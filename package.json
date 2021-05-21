@@ -40,7 +40,7 @@
     "hard-rejection": "2.1.0",
     "load-json-file": "^6.2.0",
     "lodash": "^4.17.15",
-    "nth-log": "^1.0.0",
+    "nth-log": "2.0.1",
     "resolve-from": "^5.0.0",
     "yargs": "^15.1.0"
   },

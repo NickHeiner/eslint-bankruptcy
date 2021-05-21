@@ -4,11 +4,13 @@ const loadJsonFile = require('load-json-file');
 const util = require('util');
 const findParentDir = util.promisify(require('find-parent-dir'));
 const execa = require('execa');
-const log = require('nth-log');
+const createLog = require('nth-log').default;
 const _ = require('lodash');
 const fs = require('fs');
 const readFile = util.promisify(fs.readFile.bind(fs));
 const writeFile = util.promisify(fs.writeFile.bind(fs));
+
+const log = createLog({name: 'declare-eslint-bankruptcy'});
 
 /**
  * @param {object} options 
