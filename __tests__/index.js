@@ -6,7 +6,7 @@ const path = require('path');
 const packageJson = require('../package');
 const {spawnSync} = require('child_process');
 const globby = require('globby');
-const log = require('nth-log');
+const log = require('../src/log');
 
 /**
  * @param {string} testName 
