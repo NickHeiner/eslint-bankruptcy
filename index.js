@@ -135,19 +135,30 @@ async function getEslintBinPath(dirPath = process.cwd()) {
 async function runEslint(eslintBinPath, files) {
   log.debug({eslintBinPath, files}, 'Spawning eslint');
 
+  /**
+   * @param {Error} spawnError 
+   */
+  function throwESLintFailedError(spawnError) {
+    const err = new Error(
+      'Eslint did not run successfully. Did you run this command from within the project ' +
+      "you're trying to transform? This is necessary so Eslint can load your project's config.");
+    Object.assign(err, {eslintBinPath, files, spawnError});
+    throw err;
+  }
+
   try {
     const {stdout, stderr} = await execa(eslintBinPath, [...files, '--format', 'json']);
     log.debug({stdout, stderr});
   } catch (e) {
     if (!e.code || e.code === 1) {
-      return JSON.parse(e.stdout);
+      try {
+        return JSON.parse(e.stdout);
+      } catch {
+        throwESLintFailedError(e);
+      }
     }
     console.log(e.stderr);
-    const err = new Error(
-      'Eslint did not run successfully. Did you run this command from within the project ' +
-      "you're trying to transform? This is necessary so Eslint can load your project's config.");
-    Object.assign(err, {eslintBinPath, files, e});
-    throw err;
+    throwESLintFailedError(e);
   }
 }
 
