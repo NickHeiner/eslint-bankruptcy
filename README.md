@@ -90,13 +90,9 @@ function f() {
 ```
 
 ### ESLint Instance
-When you invoke the command line tool, it runs `require.resolve('eslint')` in your curent working directory and uses it. This means that if you run this tool in your repo, and you have ESLint installed locally (as you should), that's the version that will be used.
+When you invoke the command line tool, it runs `require.resolve('eslint')` in your curent working directory and uses it. This means that if you run this tool in your repo, and you have ESLint installed locally (as you should), that's the version that will be used. If you don't have ESLint installed locally, see [Custom ESLint Invocation](#custom-eslint-invocation) above.
 
 If ESLint changes its command line interface, this tool could break.
-
-## Areas for Development
-* Provide ability to specify an ESLint executable.
-
 ## Programmatic Usage
 `require('eslint-bankruptcy')`. Look at the type definitions in this package's `main` file for usage.
 
