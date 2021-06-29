@@ -56,7 +56,12 @@ By default, this project find the ESLint bin in your project, then invoke a comm
 $ eslint path/to/your/files --format json
 ```
 
-However, some projects have custom ESLint commands (e.g. passing custom args, using a custom ESLint bin wrapper, etc.) This is not currently supported.
+However, some projects have custom ESLint commands (e.g. passing custom args, using a custom ESLint bin wrapper, etc.). In this case, run eslint yourself, have it output JSON, then point this tool to it:
+
+```
+$ my-custom-eslint-wrapper files --json-output > eslint-output.json
+$ declare-eslint-bankruptcy --eslintOutputFilePath eslint-output.json --rule my-rule --explanation 'My explanation' src
+```
 
 ### When Not To Use This
 * When you want to add a new rule, and there are violations in your existing code, but they can be fixed with a codemod or ESLint's autofixer.

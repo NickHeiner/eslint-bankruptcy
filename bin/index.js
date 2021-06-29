@@ -34,7 +34,7 @@ require('yargs')
     },
     eslintOutputFilePath: {
       string: true,
-      description: '[Experimental] Pass the output of `eslint --format json`. ' +
+      description: 'Pass the output of `eslint --format json`. ' +
         'Use this if your project has a special eslint setup, or you want to preprocess what this tool runs on.'
     }
   })
