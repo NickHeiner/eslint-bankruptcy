@@ -38,14 +38,12 @@ require('yargs')
         'Use this if your project has a special eslint setup, or you want to preprocess what this tool runs on.'
     }
   })
+  .strict()
   .argv;
-
-// TODO: add ability to specify an eslint instance / command path
-// Possibly add ability to pass through arbitrary other args to eslint?
 
 /**
  * I'm not sure how to these types flow automatically.
- * @param {Record<'files' | 'rule' | 'dry' | 'explanation', any>} argv 
+ * @param {Record<'files' | 'rule' | 'dry' | 'explanation' | 'eslintOutputFilePath', any>} argv 
  */
 async function main(argv) {
   if (!argv.files.length) {
@@ -58,6 +56,6 @@ async function main(argv) {
     rules: argv.rule,
     dry: argv.dry,
     explanation: argv.explanation,
-    eslintOutputFilePath: argv. eslintOutputFilePath
+    eslintOutputFilePath: argv.eslintOutputFilePath
   });
 }

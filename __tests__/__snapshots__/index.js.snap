@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`eslint-bankruptcy --eslintOutputFilePath already-disabled-file.js 1`] = `
+"/* eslint-disable no-console */
+
+function f() {}
+
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy --eslintOutputFilePath already-disabled-line.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already disabled
+// eslint-disable-next-line no-console
+console.log();
+"
+`;
+
+exports[`eslint-bankruptcy --eslintOutputFilePath multiple-rules-one-line.js 1`] = `
+"let foo_bar;
+
+console.log(); foo_bar;"
+`;
+
+exports[`eslint-bankruptcy --eslintOutputFilePath nest/nested.js 1`] = `
+"console.log();
+"
+`;
+
+exports[`eslint-bankruptcy --eslintOutputFilePath only-warning.js 1`] = `
+"let x, y, f;
+if (x == y) {
+  f();
+}"
+`;
+
+exports[`eslint-bankruptcy --eslintOutputFilePath root.js 1`] = `
+"// eslint-disable-next-line no-console
+console.log();
+
+// Already has comment
+// eslint-disable-next-line no-console
+console.log();
+
+function indented() {
+  // eslint-disable-next-line no-console
+  console.log();
+}
+"
+`;
+
 exports[`eslint-bankruptcy dry run already-disabled-file.js 1`] = `
 "/* eslint-disable no-console */
 

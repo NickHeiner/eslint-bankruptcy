@@ -5,20 +5,43 @@ const path = require('path');
 // @ts-ignore TS erroneously complains about this require.
 const packageJson = require('../package');
 const {spawnSync} = require('child_process');
+const loadJsonFile = require('load-json-file');
+const writeJsonFile = require('write-json-file');
 const globby = require('globby');
 const log = require('../src/log');
+const _ = require('lodash');
 
 /**
  * @param {string} testName 
  * @param {string[]} flagsOtherThanFilePath 
  * @param {string[]} [filesArgs]
+ * @param {{passEslintOutput?: boolean} | undefined} opts
  */
-function prepareTest(testName, flagsOtherThanFilePath, filesArgs) {
+function prepareTest(testName, flagsOtherThanFilePath, filesArgs, {passEslintOutput} = {}) {
   const tmpDir = createTmpDir({prefix: `${packageJson.name}-${encodeURIComponent(testName)}-`}).name;
   copy(path.resolve(__dirname, '..', 'fixtures'), tmpDir);
+
+  const eslintOutputJsonPath = path.join(tmpDir, 'eslint-output.json');
+  const eslintOutput = loadJsonFile.sync(eslintOutputJsonPath);
+  if (!eslintOutput) {
+    throw new Error(`Test was expecting to find eslint output file at "${eslintOutputJsonPath}".`);
+  }
+  // I'm not sure how to do the type assertion in JSDoc.
+  /** @ts-expect-error */
+  const withFilePathFixed = eslintOutput.map(fileEntry => ({
+    ...fileEntry,
+    filePath: fileEntry.filePath.replace('<fixturesRoot>', tmpDir)
+  }));
+  writeJsonFile.sync(eslintOutputJsonPath, withFilePathFixed);
+
   const binPath = path.resolve(__dirname, '..', packageJson.bin['declare-eslint-bankruptcy']);
   const filesToPass = filesArgs ? filesArgs.map(filePath => path.join(tmpDir, filePath)) : [tmpDir];
   const flags = [...filesToPass, ...flagsOtherThanFilePath];
+
+  if (passEslintOutput) {
+    flags.push('--eslintOutputFilePath', eslintOutputJsonPath);
+  }
+
   log.trace({binPath, flags}, 'Spawning');
   const {status, stdout: stdoutBuffer, stderr: stderrBuffer} = spawnSync(binPath, flags, {
     env: {
@@ -38,7 +61,9 @@ function prepareTest(testName, flagsOtherThanFilePath, filesArgs) {
   }
     
   return {
-    files: filesArgs ? filesToPass : globby.sync(`${tmpDir}/**/*`), 
+    files: filesArgs ? 
+      filesToPass : 
+      _.reject(globby.sync(`${tmpDir}/**/*`), filePath => filePath.includes('eslint-output.json')),
     rootDir: tmpDir
   };
 }
@@ -104,7 +129,17 @@ describe('eslint-bankruptcy', () => {
   });
 
   describe('dry run', () => {
-    const files = prepareTest('dry run', ['--dry-run', '--rule', '--no-console']);
+    const files = prepareTest('dry run', ['--dry', '--rule', 'no-console']);
+    assertFilesMatchSnapshots(files);
+  });
+
+  describe('--eslintOutputFilePath', () => {
+    const files = prepareTest(
+      'eslintOutputFilePath', 
+      ['--rule', 'no-console'],
+      undefined,
+      {passEslintOutput: true}
+    );
     assertFilesMatchSnapshots(files);
   });
 });
