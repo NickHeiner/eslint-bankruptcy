@@ -31,6 +31,11 @@ require('yargs')
       alias: 'e',
       string: true,
       description: 'Highly recommended. A message that will be included with the disable comments.'
+    },
+    eslintOutputFilePath: {
+      string: true,
+      description: '[Experimental] Pass the output of `eslint --format json`. ' +
+        'Use this if your project has a special eslint setup, or you want to preprocess what this tool runs on.'
     }
   })
   .argv;
@@ -52,6 +57,7 @@ async function main(argv) {
     files: argv.files,
     rules: argv.rule,
     dry: argv.dry,
-    explanation: argv.explanation
+    explanation: argv.explanation,
+    eslintOutputFilePath: argv. eslintOutputFilePath
   });
 }
