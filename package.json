@@ -1,6 +1,6 @@
 {
   "name": "eslint-bankruptcy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Codemod to eslint-disable all instances of a rule violation in a codebase",
   "main": "index.js",
   "repository": "git@github.com:NickHeiner/eslint-bankruptcy.git",
@@ -32,7 +32,8 @@
     "globby": "^10.0.1",
     "jest": "^24.9.0",
     "tmp": "^0.1.0",
-    "typescript": "4.2.4"
+    "typescript": "4.2.4",
+    "write-json-file": "4.3.0"
   },
   "dependencies": {
     "execa": "5.0.0",

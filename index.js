@@ -11,15 +11,30 @@ const writeFile = util.promisify(fs.writeFile.bind(fs));
 const log = require('./src/log');
 
 /**
+ * 
+ * @param {string[]} files 
+ * @param {string | undefined} eslintOutputFilePath 
+ * @returns 
+ */
+async function getEslintReport(files, eslintOutputFilePath) {
+  if (eslintOutputFilePath) {
+    log.debug({eslintOutputFilePath}, 'Reading eslint output from JSON instead of spawning eslint.');
+    return loadJsonFile(eslintOutputFilePath);
+  }
+  const eslintBin = await getEslintBinPath();
+  return runEslint(eslintBin, files);
+}
+
+/**
  * @param {object} options 
  * @param {string[]} options.files
  * @param {string[]} options.rules
  * @param {boolean | undefined} options.dry
  * @param {string | undefined} options.explanation
+ * @param {string} options.eslintOutputFilePath
  */
 async function eslintBankruptcy(options) {
-  const eslintBin = await getEslintBinPath();
-  const eslintReport = await runEslint(eslintBin, options.files);
+  const eslintReport = await getEslintReport(options.files, options.eslintOutputFilePath);
   const violations = await getViolations(eslintReport, options.rules);
   const countViolatingFiles = _.size(violations);
   const logParams = {countViolatingFiles};

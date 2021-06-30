@@ -1,0 +1,117 @@
+[
+  {
+    "filePath": "<fixturesRoot>/already-disabled-file.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'f' is defined but never used.",
+        "line": 3,
+        "column": 10,
+        "nodeType": "Identifier",
+        "endLine": 3,
+        "endColumn": 11
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "/* eslint-disable no-console */\n\nfunction f() {}\n\nconsole.log();\n"
+  },
+  {
+    "filePath": "<fixturesRoot>/already-disabled-line.js",
+    "messages": [
+      {
+        "ruleId": "no-console",
+        "severity": 2,
+        "message": "Unexpected console statement.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "MemberExpression",
+        "messageId": "unexpected",
+        "endLine": 1,
+        "endColumn": 12
+      }
+    ],
+    "errorCount": 1,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "console.log();\n\n// Already disabled\n// eslint-disable-next-line no-console\nconsole.log();\n"
+  },
+  {
+    "filePath": "<fixturesRoot>/only-warning.js",
+    "messages": [
+      {
+        "ruleId": "eqeqeq",
+        "severity": 1,
+        "message": "Expected '===' and instead saw '=='.",
+        "line": 2,
+        "column": 7,
+        "nodeType": "BinaryExpression",
+        "messageId": "unexpected",
+        "endLine": 2,
+        "endColumn": 9
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "let x, y, f;\nif (x == y) {\n  f();\n}"
+  },
+  {
+    "filePath": "<fixturesRoot>/root.js",
+    "messages": [
+      {
+        "ruleId": "no-console",
+        "severity": 2,
+        "message": "Unexpected console statement.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "MemberExpression",
+        "messageId": "unexpected",
+        "endLine": 1,
+        "endColumn": 12
+      },
+      {
+        "ruleId": "no-console",
+        "severity": 2,
+        "message": "Unexpected console statement.",
+        "line": 4,
+        "column": 1,
+        "nodeType": "MemberExpression",
+        "messageId": "unexpected",
+        "endLine": 4,
+        "endColumn": 12
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'indented' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "endLine": 6,
+        "endColumn": 18
+      },
+      {
+        "ruleId": "no-console",
+        "severity": 2,
+        "message": "Unexpected console statement.",
+        "line": 7,
+        "column": 3,
+        "nodeType": "MemberExpression",
+        "messageId": "unexpected",
+        "endLine": 7,
+        "endColumn": 14
+      }
+    ],
+    "errorCount": 3,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "console.log();\n\n// Already has comment\nconsole.log();\n\nfunction indented() {\n  console.log();\n}\n"
+  }
+]

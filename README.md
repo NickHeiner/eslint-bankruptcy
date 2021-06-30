@@ -56,7 +56,12 @@ By default, this project find the ESLint bin in your project, then invoke a comm
 $ eslint path/to/your/files --format json
 ```
 
-However, some projects have custom ESLint commands (e.g. passing custom args, using a custom ESLint bin wrapper, etc.) This is not currently supported.
+However, some projects have custom ESLint commands (e.g. passing custom args, using a custom ESLint bin wrapper, etc.). In this case, run eslint yourself, have it output JSON, then point this tool to it:
+
+```
+$ my-custom-eslint-wrapper files --json-output > eslint-output.json
+$ declare-eslint-bankruptcy --eslintOutputFilePath eslint-output.json --rule my-rule --explanation 'My explanation' src
+```
 
 ### When Not To Use This
 * When you want to add a new rule, and there are violations in your existing code, but they can be fixed with a codemod or ESLint's autofixer.
@@ -85,13 +90,9 @@ function f() {
 ```
 
 ### ESLint Instance
-When you invoke the command line tool, it runs `require.resolve('eslint')` in your curent working directory and uses it. This means that if you run this tool in your repo, and you have ESLint installed locally (as you should), that's the version that will be used.
+When you invoke the command line tool, it runs `require.resolve('eslint')` in your curent working directory and uses it. This means that if you run this tool in your repo, and you have ESLint installed locally (as you should), that's the version that will be used. If you don't have ESLint installed locally, see [Custom ESLint Invocation](#custom-eslint-invocation) above.
 
 If ESLint changes its command line interface, this tool could break.
-
-## Areas for Development
-* Provide ability to specify an ESLint executable.
-
 ## Programmatic Usage
 `require('eslint-bankruptcy')`. Look at the type definitions in this package's `main` file for usage.
 
