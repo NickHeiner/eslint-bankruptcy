@@ -61,9 +61,9 @@ function prepareTest(testName, flagsOtherThanFilePath, filesArgs, {passEslintOut
   }
     
   return {
-    files: filesArgs ? 
-      filesToPass : 
-      _.reject(globby.sync(`${tmpDir}/**/*`), filePath => filePath.includes('eslint-output.json')),
+    files: filesArgs 
+      ? filesToPass 
+      : _.reject(globby.sync(`${tmpDir}/**/*`), filePath => filePath.includes('eslint-output.json')),
     rootDir: tmpDir
   };
 }

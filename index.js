@@ -18,7 +18,7 @@ const log = require('./src/log');
  */
 async function getEslintReport(files, eslintOutputFilePath) {
   if (eslintOutputFilePath) {
-    log.debug({eslintOutputFilePath}, 'Reading eslint output from JSON instead of spawning eslint.')
+    log.debug({eslintOutputFilePath}, 'Reading eslint output from JSON instead of spawning eslint.');
     return loadJsonFile(eslintOutputFilePath);
   }
   const eslintBin = await getEslintBinPath();
