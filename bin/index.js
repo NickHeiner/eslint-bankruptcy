@@ -13,7 +13,8 @@ require('yargs')
     yargs => {
       yargs.positional('files', {
         describe: 'Files to modify',
-        string: true
+        string: true,
+        required: true
       });
     },
     main
